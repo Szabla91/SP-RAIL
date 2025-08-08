@@ -203,6 +203,18 @@ width: 150px;
   <a href="https://bbats.sharepoint.com/:u:/r/sites/MLK/SitePages/RAIL.aspx?csf=1&web=1&e=A28FHt" class="btn-back">Powrót do ekranu głównego</a>
   <h1>Kontakty – Transport Kolejowy</h1>
 
+<input type="text" id="search" placeholder="Szukaj kontaktu..." style="
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+">
+
   <div class="tiles-container">
     <div class="tile" data-section="operatorzy">Operatorzy kolejowi</div>
     <div class="tile" data-section="agencje">Agencje celne</div>
@@ -271,10 +283,14 @@ width: 150px;
     </div>
 
     <div class="contact-card">
-      <h3>TAKSIM-POL GDYNIA</h3>
+      <h3>TAKSIM-POL MARKI</h3>
       <div class="content">
-        <p><strong>Główny mail:</strong> <a href="mailto:gdynia@taksim-pol.com.pl">gdynia@taksim-pol.com.pl</a></p>
-        <p><strong>Kierownik Agencji:</strong><br> Marek Zdyb<br><a href="mailto:marek.zdyb@taksim-pol.com.pl">marek.zdyb@taksim-pol.com.pl</a><br><strong>Telefon:</strong> 501 866 197</p>
+        <p><strong>Główny mail:</strong><br><a href="mailto:targowek@taksim-pol.com.pl">targowek@taksim-pol.com.pl</a></p>
+    <p><strong>Kierownik agencji celnej:</strong><br>
+      Ewelina Rydzewska<br>
+      <a href="mailto:ewelina.rydzewska@taksim-pol.com.pl">ewelina.rydzewska@taksim-pol.com.pl</a><br>
+      <strong>Telefon:</strong> 501 866 144
+    </p>
       </div>
     </div>
 
@@ -567,20 +583,88 @@ Dominika Depka<br>
 </div>
 </div>
 
-  <script>
-    const tiles = document.querySelectorAll('.tile');
-    const contactLists = document.querySelectorAll('.contact-list');
-    tiles.forEach(tile => {
-      tile.addEventListener('click', () => {
-        tiles.forEach(t => t.classList.remove('selected'));
-        tile.classList.add('selected');
-        contactLists.forEach(list => list.classList.remove('active'));
-        const section = tile.getAttribute('data-section');
-        const activeList = document.getElementById('contacts-' + section);
-        if (activeList) activeList.classList.add('active');
-      });
+<script>
+const tiles = document.querySelectorAll('.tile');
+const contactLists = document.querySelectorAll('.contact-list');
+const searchInput = document.getElementById('search');
+const allContactCards = document.querySelectorAll('.contact-card');
+const allContactLists = document.querySelectorAll('.contact-list');
+const allHeaders = document.querySelectorAll('.header');
+let activeSection = null;
+
+tiles.forEach(tile => {
+  tile.addEventListener('click', () => {
+    tiles.forEach(t => t.classList.remove('selected'));
+    tile.classList.add('selected');
+
+    const section = tile.getAttribute('data-section');
+    activeSection = section; 
+
+    // Czyścimy pole wyszukiwania przy zmianie kategorii dla lepszego UX
+    searchInput.value = '';
+    
+    // Upewniamy się, że wszystkie karty i nagłówki są widoczne przed pokazaniem sekcji
+    allContactCards.forEach(card => card.style.display = 'flex');
+    allHeaders.forEach(header => header.style.display = 'block');
+
+    allContactLists.forEach(list => {
+      if (list.id === 'contacts-' + activeSection) {
+        list.classList.add('active');
+        list.style.display = 'flex';
+      } else {
+        list.classList.remove('active');
+        list.style.display = 'none';
+      }
     });
-  </script>
+  });
+});
+
+searchInput.addEventListener('input', function () {
+  const query = this.value.trim().toLowerCase();
+
+  if (query === '') {
+    // --- POCZĄTEK ZMIANY ---
+    // 1. Najpierw przywróć widoczność WSZYSTKICH kart na całej stronie.
+    allContactCards.forEach(card => {
+      card.style.display = 'flex';
+    });
+
+    // 2. Przywróć widoczność wszystkich nagłówków (POLSKA, NIEMCY etc.).
+    allHeaders.forEach(header => {
+      header.style.display = 'block';
+    });
+
+    // 3. Pokaż tylko aktywną sekcję, a resztę ukryj.
+    allContactLists.forEach(list => {
+      const isActive = list.id === 'contacts-' + activeSection;
+      list.style.display = isActive ? 'flex' : 'none';
+    });
+    // --- KONIEC ZMIANY ---
+    return;
+  }
+
+  // W trybie wyszukiwania chowamy nagłówki sekcji
+  allHeaders.forEach(header => header.style.display = 'none');
+
+  let foundInSections = new Set();
+  allContactCards.forEach(card => {
+    // Rozszerzamy przeszukiwanie na całą zawartość karty dla lepszych wyników
+    const cardText = card.textContent.toLowerCase();
+    if (cardText.includes(query)) {
+      card.style.display = 'flex';
+      foundInSections.add(card.closest('.contact-list'));
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  allContactLists.forEach(list => {
+    list.style.display = foundInSections.has(list) ? 'flex' : 'none';
+  });
+});
+</script>
+
+
 </body>
 
 </html>
