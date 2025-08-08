@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Kontakty – Transport Kolejowy</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    color: #be1e2d;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    color: #be1e2d;
+    border-bottom: 2px solid #be1e2d;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .btn-back {
+    position: fixed;
+    top: 18px;
+    left: 20px;
+    padding: 8px 16px;
+    background-color: #be1e2d;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+  }
+
+  .btn-back:hover {
+    background-color: #a31520;
+  }
+
+  .tiles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 34px;
+    justify-content: center;
+  }
+
+  .tile {
+    background: #fafbfc;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 16px;
+    padding: 18px 24px;
+    min-width: 180px;
+    min-height: 54px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+    font-size: 1.05rem;
+    color: #be1e2d;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .tile.selected,
+  .tile:hover {
+    border-color: #be1e2d;
+    background: #fff0f2;
+    box-shadow: 0 4px 18px rgba(190,30,45,0.10);
+  }
+
+  .contact-list {
+    display: none;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: 100%;
+    animation: fadeIn 0.4s;
+    margin-bottom: 12px;
+  }
+
+  .contact-list.active {
+    display: flex;
+  }
+
+  .contact-card {
+    background: #fff;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 13px;
+    padding: 10px 20px;
+    min-width: 250px;
+    max-width: 600px;
+    width: fit-content;
+    margin: 0;
+    flex: 0 1 auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: box-shadow 0.2s;
+  }
+
+  .contact-card h3 {
+    color: #be1e2d;
+    display: block;
+    margin: 0; /* brak odstępu nad i pod nagłówkiem */
+    padding: 4px 8px;
+    border: 2px solid #be1e2d;
+    border-radius: 7px;
+    box-shadow: 0 1px 4px rgba(190,30,45,.08);
+    background: inherit;
+  }
+
+  .contact-card .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* pionowe wyśrodkowanie */
+    align-items: center;     /* poziome wyśrodkowanie */
+    gap: 6px;
+    padding-top: 8px; /* mały odstęp od nagłówka */
+    width: 100%;
+  }
+
+  .contact-card p {
+    color: #333;
+    margin: 4px 0;
+    text-align: center;
+  }
+
+  .contact-card a {
+    color: #be1e2d;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.97rem;
+  }
+
+  .contact-card a:hover {
+    text-decoration: underline;
+    color: #cc0000;
+  }
+
+.header {
+  display: block; /* aby zajął całą szerokość w rzędzie */
+  width: 100%;    /* pełna szerokość */
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  color: #be1e2d;
+  margin: 10px 0 6px 0;
+}
+
+.header span {
+  display: inline-block; /* linia tylko pod tekstem */
+  padding: 0 10px 4px 10px;
+  border-bottom: 3px solid #be1e2d;
+width: 150px;
+}
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 1050px) {
+    .contact-list {
+      flex-direction: column !important;
+      gap: 18px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .tiles-container {
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tile {
+      min-width: unset;
+      width: 100%;
+    }
+    .contact-list {
+      padding: 0;
+    }
+  }
+</style>
+</head>
+<body>
+  <a href="https://bbats.sharepoint.com/:u:/r/sites/MLK/SitePages/RAIL.aspx?csf=1&web=1&e=A28FHt" class="btn-back">Powrót do ekranu głównego</a>
+  <h1>Kontakty – Transport Kolejowy</h1>
+
+  <div class="tiles-container">
+    <div class="tile" data-section="operatorzy">Operatorzy kolejowi</div>
+    <div class="tile" data-section="agencje">Agencje celne</div>
+    <div class="tile" data-section="chiny">Agenci chińscy</div>
+    <div class="tile" data-section="dekon">Agenci dekonsolidacyjni</div>
+    <div class="tile" data-section="magazyn">Magazyny konsolowe</div>
+  </div>
+
+  <!-- Operatorzy kolejowi -->
+  <div id="contacts-operatorzy" class="contact-list">
+    <div class="contact-card">
+      <h3>RTSB</h3>
+      <div class="content">
+        <p><strong>Małaszewicze</strong></p> 
+        <p><strong>Mail: </strong><a href="mailto:awizacje@rtsb.onmicrosoft.com">awizacje@rtsb.onmicrosoft.com</a></p>
+        <p><strong>Telefon:</strong> +48 83 343 74 48 wew. 1</p> <br>
+        <p><strong>Łódź</strong></p>
+        <p><strong>Mail: </strong><a href="mailto:Lodz@rtsb.onmicrosoft.com">Lodz@rtsb.onmicrosoft.com</a></p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>RAILINK</h3>
+      <div class="content">
+        <p><strong>Mail:</strong></p>
+        <p><a href="mailto:operation.eu@railink.com.cn">operation.eu@railink.com.cn</a></p>
+        <p><a href="mailto:volodymyr.moskalenko@railink.com.cn">volodymyr.moskalenko@railink.com.cn</a></p>
+        <p><a href="mailto:kiryl.dziatchuk@railink.com.cn">kiryl.dziatchuk@railink.com.cn</a></p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>INTER RAIL</h3>
+      <div class="content">
+        <p><strong>Mail: </strong><a href="mailto:mala@polcont.com.pl">mala@polcont.com.pl</a></p>
+        <p><strong>Telefon:</strong> +48 83 375 1318</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>DB CARGO</h3>
+      <div class="content">
+        <p><strong>Mail: </strong><a href="mailto:DB.CE.ops.mala@deutschebahn.com">DB.CE.ops.mala@deutschebahn.com</a></p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>BAHN OPERATOR</h3>
+      <div class="content">
+        <p><strong>Mail: </strong><a href="mailto:ops.pl@bahnoperator.com">ops.pl@bahnoperator.com</a></p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>ADAMPOL</h3>
+      <div class="content">
+        <p><strong>Mail: </strong><a href="mailto:railway@adampolsa.com.pl">railway@adampolsa.com.pl</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agencje celne -->
+  <div id="contacts-agencje" class="contact-list">
+<div class="header"><span>POLSKA</span></div>
+    <div class="contact-card">
+      <h3>CUSTOMS SUPPORT (RUSAK)</h3>
+      <div class="content">
+        <p><strong>Główny mail:</strong><br><a href="mailto:operations-warszawa-cuc@customssupport.com">operations-warszawa-cuc@customssupport.com</a><br><strong>Telefon:</strong> 539 770 678</p>
+        <p><strong>Kierownik Agencji:</strong><br> Mariusz Ciastkowski<br> <strong>Mail:</strong> <a href="mailto:m.ciastkowski@customssupport.com">m.ciastkowski@customssupport.com</a><br><strong>Telefon:</strong> 606 282 609</p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>TAKSIM-POL GDYNIA</h3>
+      <div class="content">
+        <p><strong>Główny mail:</strong> <a href="mailto:gdynia@taksim-pol.com.pl">gdynia@taksim-pol.com.pl</a></p>
+        <p><strong>Kierownik Agencji:</strong><br> Marek Zdyb<br><a href="mailto:marek.zdyb@taksim-pol.com.pl">marek.zdyb@taksim-pol.com.pl</a><br><strong>Telefon:</strong> 501 866 197</p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>HLS Polska</h3>
+      <div class="content">
+        <p><strong>Mail importowy:</strong><br> <a href="mailto:import@eurocustoms24.pl">import@eurocustoms24.pl</a></p>
+        <p><strong>Mail eksportowy:</strong><br> <a href="mailto:export@eurocustoms24.pl">export@eurocustoms24.pl</a></p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>ELCOM</h3>
+      <div class="content">
+        <p><strong>Mail:</strong><br><a href="mailto:agencja@ac-elcom.pl">agencja@ac-elcom.pl</a></p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>ITL OMEGA</h3>
+      <div class="content">
+        <p><strong>Mail:</strong><br>
+<a href="mailto:hamburg@itl-omega.eu">hamburg@itl-omega.eu</a></p>
+        <p><strong>Telefon:</strong> po godzinie 17:00 +49 152 0879 4750</p>
+      </div>
+    </div>
+
+<div class="header"><span>NIEMCY</span></div>
+    <div class="contact-card">
+      <h3>HLS Niemcy</h3>
+      <div class="content">
+        <p><strong>Mail importowy:</strong><br>
+<a href="mailto:import@eurocustoms24.de">import@eurocustoms24.de</a></p>
+        <p><strong>Mail eksportowy:</strong><br>
+<a href="mailto:export@eurocustoms24.de">export@eurocustoms24.de</a></p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>CUSTOMS SUPPORT (PORATH DE)</h3>
+      <div class="content">
+        <p><strong>Mail:</strong><br>
+<a href="mailto:hamburg@customssupport.com">hamburg@customssupport.com</a></p>
+        <p><strong>Dodatkowy mail:</strong><br>
+<a href="mailto:ccd-de@customssupport.com">ccd-de@customssupport.com</a></p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>OCIS</h3>
+      <div class="content">
+        <p><strong>Główny mail:</strong><br>
+<a href="mailto:import@ocis.de">import@ocis.de</a></p>
+        <p><strong>Kierownik Agencji:</strong><br>
+Agnieszka Ozbek<br>
+<a href="mailto:oezbek@ocis.de">oezbek@ocis.de</a></p>
+        <p><strong>Manager Operacyjny:</strong><br>
+Dominika Depka<br>
+<a href="mailto:depka@ocis.de">depka@ocis.de</a><br><strong>Telefon:</strong> +49 (0) 160 886 4357</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agenci chińscy -->
+  <div id="contacts-chiny" class="contact-list">  
+  <div class="header"><span>LCL</span></div>
+  
+  <div class="contact-card">
+    <h3>SUNSTAR</h3>
+    <div class="content">
+      <p><strong>Amy</strong><br>
+<a href="mailto:amy@sunstar-trans.com">amy@sunstar-trans.com</a></p>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <h3>SMILE</h3>
+    <div class="content">
+      <p><strong>Shee</strong><br>
+<a href="mailto:shee@smilelogistics.com">shee@smilelogistics.com</a></p>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <h3>CARGO SHINE</h3>
+    <div class="content">
+      <p><strong>Serena</strong><br>
+<a href="serena@cargoshine.com ">serena@cargoshine.com </a></p>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <h3>JAGUAR</h3>
+    <div class="content">
+      <p><strong>Stacy</strong><br>
+<a href="railfob@worldjaguar.com">railfob@worldjaguar.com</a></p>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <h3>TIEDADA</h3>
+    <div class="content">
+      <p><strong>Yolanda</strong><br>
+<a href="mailto:xuyuan@tiedada.com">xuyuan@tiedada.com</a></p>
+    </div>
+  </div>
+
+  <div class="header"><span>FCL</span></div>
+
+  <div class="contact-card">
+    <h3>SHENZHEN RICH FUN</h3>
+    <div class="content">
+      <p><strong>Aidar</strong><br>
+<a href="mailto:sales08@ktzesz.com">sales08@ktzesz.com</a></p>
+    </div>
+  </div>
+
+</div>
+
+  <!-- Agenci dekonsolidacyjni -->
+  <div id="contacts-dekon" class="contact-list">
+
+  <div class="contact-card">
+  <h3>ELCOM</h3>
+  <div class="content">
+    <p><strong>Kierownik Spedycji:</strong><br>
+      Beata Świątkowska<br>
+      <a href="mailto:b.swiatkowska@elcom.pl">b.swiatkowska@elcom.pl</a><br>
+      <strong>Telefon:</strong> 662 027 727
+    </p>
+    <p>
+      Dawid Wilczewski<br>
+      <a href="mailto:d.wilczewski@elcom.pl">d.wilczewski@elcom.pl</a><br>
+      <strong>Telefon:</strong> 511 736 919
+    </p>
+    <p>
+      Ewelina Pokropek<br>
+      <a href="mailto:e.pokropek@elcom.pl">e.pokropek@elcom.pl</a><br>
+      <strong>Telefon:</strong> 795 153 076
+    </p>
+    <p>
+      Łukasz Zimończyk<br>
+      <a href="mailto:l.zimonczyk@elcom.pl">l.zimonczyk@elcom.pl</a><br>
+      <strong>Telefon:</strong> 573 253 445 
+    </p>
+  </div>
+</div>
+
+    <div class="contact-card">
+  <h3>BUS</h3>
+  <div class="content">
+    <p><strong>Główny mail:</strong><br>
+      <a href="mailto:rail@bussped.pl">rail@bussped.pl</a>
+    </p>
+    <p>
+      Adrian Chmielewski<br>
+      <a href="mailto:a.chmielewski@bussped.pl">a.chmielewski@bussped.pl</a><br>
+      <strong>Telefon:</strong> 795 153 076
+    </p>
+  </div>
+</div>
+
+<div class="contact-card">
+  <h3>ENTREGA</h3>
+  <div class="content">
+    <p><strong>Właściciel:</strong><br>
+      Kamil Skoneczny<br>
+      <a href="mailto:kamil@entrega.pl">kamil@entrega.pl</a><br>
+      <strong>Telefon:</strong> 509 956 956
+    </p>
+    <p>
+      Mateusz Malka<br>
+      <a href="mailto:konsola@entrega.pl">konsola@entrega.pl</a><br>
+      <strong>Telefon:</strong> 503 364 144
+    </p>
+  </div>
+</div>
+
+    <div class="contact-card">
+  <h3>IGS</h3>
+  <div class="content">
+<p><strong>Koordynator Frachtu Kolejowego:</strong><br>
+      Karolina Boczkowska<br>
+      <a href="mailto:karolina.boczkowska@igs.com.pl">karolina.boczkowska@igs.com.pl</a><br>
+      <strong>Telefon:</strong> 601 328 200
+    </p>
+    <p>
+      Oliwia Pindor<br>
+      <a href="mailto:o.pindor@igs.com.pl">o.pindor@igs.com.pl</a><br>
+      <strong>Telefon:</strong> 601 992 455
+    </p>
+  </div>
+</div>
+
+<div class="contact-card">
+  <h3>UCS</h3>
+  <div class="content">
+    <p><strong>Kierownik:</strong><br>
+      Mateusz Ratkowski<br>
+      <a href="mailto:mateusz.ratkowski@u-cs.pl">mateusz.ratkowski@u-cs.pl</a><br>
+      <strong>Telefon:</strong> 511 160 223
+    </p>
+    <p>
+      Anna Kamola-Dubicka<br>
+      <a href="mailto:anna.kamola-dubicka@u-cs.pl">anna.kamola-dubicka@u-cs.pl</a><br>
+      <strong>Telefon:</strong> 695 850 607
+    </p>
+  </div>
+</div>
+
+    <div class="contact-card">
+  <h3>RAILGATE</h3>
+  <div class="content">
+<p><strong>Główny mail:</strong><br>
+      Karolina Boczkowska<br>
+      <a href="mailto:consol@railgateeurope.com">consol@railgateeurope.com</a><br>
+    </p>
+    <p>
+      Marta Urbańska<br>
+      <a href="mailto:marta.u@railgateeurope.com">marta.u@railgateeurope.com</a><br>
+      <strong>Telefon:</strong> 795 187 017
+    </p>
+  </div>
+</div>
+  </div>
+
+  <!-- Magazyny -->
+  <div id="contacts-magazyn" class="contact-list">
+<div class="contact-card">
+<h3>ASL</h3>
+  <div class="content">
+<p><strong>Główny mail:</strong><br>
+      <a href="mailto:magazyn@asl.pl">magazyn@asl.pl</a><br>
+    </p>
+    <p><strong>Kierownik magazynu:</strong><br>
+      Paulina Rejtner<br>
+      <a href="mailto:rejtner@asl.pl">rejtner@asl.pl</a><br>
+      <strong>Telefon:</strong> 734 824 678
+    </p>
+    <p><strong>Koordynator magazynu:</strong><br>
+      Łukasz Piegutkowski<br>
+      <a href="mailto:piegutkowski@asl.pl">piegutkowski@asl.pl</a><br>
+      <strong>Telefon:</strong> 509 021 674
+    </p>
+    <p><strong>Kierownik agencji celnej:</strong><br>
+      Piotr Dziubak<br>
+      <a href="mailto:dziubak@asl.pl">dziubak@asl.pl</a><br>
+      <strong>Telefon:</strong> 602 435 418
+    </p>
+</div>
+</div>
+
+<div class="contact-card">
+<h3>TAKSIM MARKI</h3>
+  <div class="content">
+    <p><strong>Kierownik magazynu:</strong><br>
+      Krzysztof Lasecki<br>
+      <a href="mailto:magazyn.marki@taksim-pol.com.pl">magazyn.marki@taksim-pol.com.pl</a><br>
+      <strong>Telefon:</strong> 509 802 327
+    </p>
+    <p><strong>Zastępca kierownika magazynu:</strong><br>
+      Damian Mossak<br>
+      <a href="mailto:magazyn.marki2@taksim-pol.com.pl">magazyn.marki2@taksim-pol.com.pl</a><br>
+      <strong>Telefon:</strong> 603 222 183
+    </p>
+    <p><strong>Kierownik agencji celnej:</strong><br>
+      Ewelina Rydzewska<br>
+      <a href="mailto:ewelina.rydzewska@taksim-pol.com.pl">ewelina.rydzewska@taksim-pol.com.pl</a><br>
+      <strong>Telefon:</strong> 501 866 144
+    </p>
+</div>
+</div>
+
+
+<div class="contact-card">
+<h3>TAKSIM PRUSZKÓW</h3>
+  <div class="content">
+<p><strong>Główny mail:</strong><br>
+      <a href="mailto:magazyn-m@taksim-pol.com.pl">magazyn-m@taksim-pol.com.pl</a><br>
+    </p>
+    <p><strong>Kierownik magazynu:</strong><br>
+      Jacek Hul<br>
+      <a href="mailto:jacek.hul@taksim-pol.com.pl">jacek.hul@taksim-pol.com.pl</a><br>
+      <strong>Telefon:</strong> 604 931 852
+    <p><strong>Kierownik agencji celnej:</strong><br>
+      Ewelina Rydzewska<br>
+      <a href="mailto:ewelina.rydzewska@taksim-pol.com.pl">ewelina.rydzewska@taksim-pol.com.pl</a><br>
+      <strong>Telefon:</strong> 501 866 144
+    </p>
+</div>
+</div>
+
+  <script>
+    const tiles = document.querySelectorAll('.tile');
+    const contactLists = document.querySelectorAll('.contact-list');
+    tiles.forEach(tile => {
+      tile.addEventListener('click', () => {
+        tiles.forEach(t => t.classList.remove('selected'));
+        tile.classList.add('selected');
+        contactLists.forEach(list => list.classList.remove('active'));
+        const section = tile.getAttribute('data-section');
+        const activeList = document.getElementById('contacts-' + section);
+        if (activeList) activeList.classList.add('active');
+      });
+    });
+  </script>
+</body>
+
+</html>
