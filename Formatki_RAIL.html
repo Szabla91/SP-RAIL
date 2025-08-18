@@ -207,12 +207,15 @@ text-align: center;
 <div class="formatki-blok">
   <div class="templates-list" id="templates-list"></div>
 </div>
+
 <script>
+
+
 // Przykładowe dane – podmień na swoje szablony
 const templates = [
   {
     key: "nowy-klient-ubezpieczenie",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Nowy klient ubezpieczenie", en: "New client insurance" },
     content: {
       pl: {
@@ -228,7 +231,7 @@ typ: "ALL",
 
  {
     key: "nowy-klient-ubezpieczenie-brak-danych",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Nowy klient ubezpieczenie - brak danych", en: "New client insurance no data" },
     content: {
       pl: {
@@ -237,14 +240,14 @@ typ: "ALL",
       },
       en: {
         m: "Good morning,\n\nIt's a pleasure to write to you for the first time.\n\nI will be responsible for operational handling of your shipment and will keep you updated on the progress.\n\nAccording to the guidelines, the cargo is to be covered by additional ALL-RISK cargo insurance. To achieve this, I need information from you about the invoice value of the goods and what will be covered by the insurance. In the next step, please send a scan of the invoice confirming the value of the goods.",
-        f: "Good morning,\n\nIt's a pleasure to write to you for the first time.\n\nI will be responsible for operational handling of your shipment and will keep you updated on the progress.\n\nAccording to the guidelines, the cargo is to be covered by additional ALL-RISK cargo insurance. To achieve this, I need information from you about the invoice value of the goods and what will be covered by the insurance. In the next step, please send a scan of the invoice confirming the value of the goods."
+        f: "Good morning,\n\nI will be responsible for operational handling of your shipment and will keep you updated on the progress.\n\nAccording to the guidelines, the cargo is to be covered by additional ALL-RISK cargo insurance. To achieve this, I need information from you about the invoice value of the goods and what will be covered by the insurance. In the next step, please send a scan of the invoice confirming the value of the goods."
       }
     }
   },
 
   {
     key: "nowy-klient-brak-ubezpieczenia",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Nowy klient brak ubezpieczenia", en: "New client no insurance" },
     content: {
       pl: {
@@ -260,39 +263,39 @@ typ: "ALL",
 
 {
     key: "Gotowosc-towaru",
-typ: "FCL",
+    typ: "FCL",
     title: { pl: "Gotowość towaru", en: "Cargo readiness" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>08.11</b>\n\nPrzy tej gotowości towaru wyjazd pociągu zaplanowany jest wstępnie na <b>28.03</b>\n\nPowrócę z kolejnymi informacjami.",
-        f: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>08.11</b>\n\nPrzy tej gotowości towaru wyjazd pociągu zaplanowany jest wstępnie na <b>28.03</b>\n\nPowrócę z kolejnymi informacjami."
+        m: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>{today+0}</b>\n\nPrzy tej gotowości towaru wyjazd pociągu zaplanowany jest wstępnie na <b>{today+20}</b>\n\nPowrócę z kolejnymi informacjami.",
+        f: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>{today+0}</b>\n\nPrzy tej gotowości towaru wyjazd pociągu zaplanowany jest wstępnie na <b>{today+20}</b>\n\nPowrócę z kolejnymi informacjami."
       },
       en: {
-        m: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>08.11</b>\n\nWith this readiness of the goods, the train departure is tentatively scheduled for <b>28/03</b>\n\nI will return with further information.",
-        f: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>08.11</b>\n\nWith this readiness of the goods, the train departure is tentatively scheduled for <b>28/03</b>\n\nI will return with further information."
+        m: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>{today+0}</b>\n\nWith this readiness of the goods, the train departure is tentatively scheduled for <b>{today+20}</b>\n\nI will return with further information.",
+        f: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>{today+0}</b>\n\nWith this readiness of the goods, the train departure is tentatively scheduled for <b>{today+20}</b>\n\nI will return with further information."
       }
     }
   },
 
 {
     key: "Gotowosc-towaru",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Gotowość towaru", en: "Cargo readiness" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>08.11</b>\n\nWyjazd pociągu zaplanowany jest wstępnie na <b>12.11</b>\n\nPoniżej szczegóły towaru jakie przesłał załadowca agentowi:\n\n\n\nPowrócę z kolejnymi informacjami.",
-        f: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>08.11</b>\n\nWyjazd pociągu zaplanowany jest wstępnie na <b>12.11</b>\n\nPoniżej szczegóły towaru jakie przesłał załadowca agentowi:\n\n\n\nPowrócę z kolejnymi informacjami."
+        m: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>{today+0}</b>\n\nWyjazd pociągu zaplanowany jest wstępnie na <b>{today+10}</b>\n\nPoniżej szczegóły towaru jakie przesłał załadowca agentowi:\n\n\n\nPowrócę z kolejnymi informacjami.",
+        f: "Dzień dobry,\n\nAgent skontaktował się z załadowcą, towar ma być gotowy <b>{today+0}</b>\n\nWyjazd pociągu zaplanowany jest wstępnie na <b>{today+10}</b>\n\nPoniżej szczegóły towaru jakie przesłał załadowca agentowi:\n\n\n\nPowrócę z kolejnymi informacjami."
       },
       en: {
-        m: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>08.11</b>\n\nThe train departure is tentatively scheduled for <b>12.11</b>\n\nBelow are the details of the goods sent by the shipper to the agent:\n\n\n\nI will return with further information.",
-        f: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>08.11</b>\n\nThe train departure is tentatively scheduled for <b>12.11</b>\n\nBelow are the details of the goods sent by the shipper to the agent:\n\n\n\nI will return with further information."
+        m: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>{today+0}</b>\n\nThe train departure is tentatively scheduled for <b>{today+10}</b>\n\nBelow are the details of the goods sent by the shipper to the agent:\n\n\n\nI will return with further information.",
+        f: "Good morning,\n\nThe agent has contacted the shipper, the goods are expected to be ready on <b>{today+0}</b>\n\nThe train departure is tentatively scheduled for <b>{today+10}</b>\n\nBelow are the details of the goods sent by the shipper to the agent:\n\n\n\nI will return with further information."
       }
     }
   },
 
   {
     key: "draft-BL",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Draft BL", en: "Draft BL" },
     content: {
       pl: {
@@ -309,39 +312,39 @@ typ: "LCL",
 
   {
     key: "zaladunek-kotenera",
-typ: "FCL",
+    typ: "FCL",
     title: { pl: "Załadunek kontenera", en: "Container loading" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nKontener został załadowany.\n\nW załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>08.11</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie.",
-        f: "Dzień dobry,\n\nKontener został załadowany.\n\nW załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>08.11</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie."
+        m: "Dzień dobry,\n\nKontener został załadowany.\n\nW załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>{today+4}</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie.",
+        f: "Dzień dobry,\n\nKontener został załadowany.\n\nW załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>{today+4}</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie."
       },
       en: {
-        m: "Good morning,\n\nThe container has been loaded.\n\nI am sending photos in the attachment.\n\nThe train departure is scheduled for <b>08.11</b>\n\nI will get back with confirmation after departure.",
-        f: "Good morning,\n\nThe container has been loaded.\n\nI am sending photos in the attachment.\n\nThe train departure is scheduled for <b>08.11</b>\n\nI will get back with confirmation after departure."
+        m: "Good morning,\n\nThe container has been loaded.\n\nI am sending photos in the attachment.\n\nThe train departure is scheduled for <b>{today+4}</b>\n\nI will get back with confirmation after departure.",
+        f: "Good morning,\n\nThe container has been loaded.\n\nI am sending photos in the attachment.\n\nThe train departure is scheduled for <b>{today+4}</b>\n\nI will get back with confirmation after departure."
       }
     }
   },
 
  {
     key: "odbior-towaru",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Odbiór towaru", en: "Pickup" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nTowar został odebrany. W załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>08.11</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie.",
-        f: "Dzień dobry,\n\nTowar został odebrany. W załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>08.11</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie."
+        m: "Dzień dobry,\n\nTowar został odebrany. W załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>{today+7}</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie.",
+        f: "Dzień dobry,\n\nTowar został odebrany. W załączniku przesyłam zdjęcia.\n\nWyjazd pociągu zaplanowany jest na <b>{today+7}</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie."
       },
       en: {
-        m: "Good morning,\n\nThe goods have been picked up. I've attached photos.\n\nThe train departure is scheduled for <b>08.11</b>\n\nI will get back with confirmation after departure.",
-        f: "Good morning,\n\nThe goods have been picked up. I've attached photos.\n\nThe train departure is scheduled for <b>08.11</b>\n\nI will get back with confirmation after departure."
+        m: "Good morning,\n\nThe goods have been picked up. I've attached photos.\n\nThe train departure is scheduled for <b>{today+7}</b>\n\nI will get back with confirmation after departure.",
+        f: "Good morning,\n\nThe goods have been picked up. I've attached photos.\n\nThe train departure is scheduled for <b>{today+7}</b>\n\nI will get back with confirmation after departure."
       }
     }
   },
 
 {
     key: "Update",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Update", en: "Update" },
     content: {
       pl: {
@@ -357,87 +360,83 @@ typ: "LCL",
 
 {
     key: "Opoznienie",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Opóźniony wyjazd", en: "Delayed departure" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nOtrzymałem informację od agenta, że pociąg nie wyjechał dzisiaj zgodnie z planem.\n\nWyjazd pociągu został przesunięty na <b>29.07</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie.",
-        f: "Dzień dobry,\n\nOtrzymałam informację od agenta, że pociąg nie wyjechał dzisiaj zgodnie z planem.\n\nWyjazd pociągu został przesunięty na <b>29.07</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie."
+        m: "Dzień dobry,\n\nOtrzymałem informację od agenta, że pociąg nie wyjechał dzisiaj zgodnie z planem.\n\nWyjazd pociągu został przesunięty na <b>{today+1}</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie.",
+        f: "Dzień dobry,\n\nOtrzymałam informację od agenta, że pociąg nie wyjechał dzisiaj zgodnie z planem.\n\nWyjazd pociągu został przesunięty na <b>{today+1}</b>\n\nPowrócę z potwierdzeniem jak tylko towar wyjedzie."
       },
       en: {
-        m: "Good morning,\n\nI have received information from the agent that the train did not departured today as scheduled.\n\nnDeparture has been postponed to <b>29/07</b>\n\nI will get back with confirmation after departure.",
-        f: "Good morning,\n\nI have received information from the agent that the train did not departured today as scheduled.\n\nDeparture has been postponed to <b>29/07</b>\n\nI will get back with confirmation after departure."
+        m: "Good morning,\n\nI have received information from the agent that the train did not departured today as scheduled.\n\nnDeparture has been postponed to <b>{today+1}</b>\n\nI will get back with confirmation after departure.",
+        f: "Good morning,\n\nI have received information from the agent that the train did not departured today as scheduled.\n\nDeparture has been postponed to <b>{today+1}</b>\n\nI will get back with confirmation after departure."
       }
     }
   },
 
 {
     key: "Wyjazd",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Wyjazd pociągu", en: "Departure" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\Przesyłka wyjechała pociągiem <b>23.07</b>\nPlanowany rozładunek na magazynie w Warszawie: ok. <b>10.09</b>\n\nW załączeniu przesyłam BL.\n\nLink do śledzenia:\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Przesyłka ma 3 dni wolnych od składowania, liczone od momentu złożenia przesyłki na magazynie. Po czasie wolnym od składowania opłata wynosi:\nDni 1-7  3,5 EUR * R/T\nDni 8-14 5,5 EUR * R/T\nDni 15-21 9 EUR * R/T\nPonad  22 dni 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nLiczone są dni kalendarzowe, min. 25 EUR</b>",
-        f: "Dzień dobry,\n\Przesyłka wyjechała pociągiem <b>23.07</b>\nPlanowany rozładunek na magazynie w Warszawie: ok. <b>10.09</b>\n\nW załączeniu przesyłam BL.\n\nLink do śledzenia:\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Przesyłka ma 3 dni wolnych od składowania, liczone od momentu złożenia przesyłki na magazynie. Po czasie wolnym od składowania opłata wynosi:\nDni 1-7  3,5 EUR * R/T\nDni 8-14 5,5 EUR * R/T\nDni 15-21 9 EUR * R/T\nPonad  22 dni- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nLiczone są dni kalendarzowe, min. 25 EUR</b>"
+        m: "Dzień dobry,\n\nPrzesyłka wyjechała pociągiem <b>{today}</b>\nPlanowany przyjazd do Małaszewicz: ok. <b>{today+21}</b>\nPlanowany rozładunek na magazynie w Warszawie: ok. <b>{today+24}</b>\n\nW załączeniu przesyłam BL.\n\nLink do śledzenia:\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Przesyłka ma 3 dni wolnych od składowania, liczone od momentu złożenia przesyłki na magazynie. Po czasie wolnym od składowania opłata wynosi:\nDni 1-7  3,5 EUR * R/T\nDni 8-14 5,5 EUR * R/T\nDni 15-21 9 EUR * R/T\nPonad  22 dni- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nLiczone są dni kalendarzowe, min. 25 EUR</b>",
+        f: "Dzień dobry,\n\nPrzesyłka wyjechała pociągiem <b>{today}</b>\nPlanowany przyjazd do Małaszewicz: ok. <b>{today+21}</b>\nPlanowany rozładunek na magazynie w Warszawie: ok. <b>{today+24}</b>\n\nW załączeniu przesyłam BL.\n\nLink do śledzenia:\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Przesyłka ma 3 dni wolnych od składowania, liczone od momentu złożenia przesyłki na magazynie. Po czasie wolnym od składowania opłata wynosi:\nDni 1-7  3,5 EUR * R/T\nDni 8-14 5,5 EUR * R/T\nDni 15-21 9 EUR * R/T\nPonad  22 dni- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nLiczone są dni kalendarzowe, min. 25 EUR</b>"
       },
       en: {
-        m: "Good morning,\n\nThe shipment departured on <b>14.04</b>\nPlanned arrival to Hamburg: approx. <b>29.04</b>\n\nAttached I am sending BL.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment is free from storage for 3 days, counted from the moment the shipment is placed in the warehouse. After the free storage period, the fee is:\nDays 1-7  3,5 EUR * R/T\nDays 8-14 5,5 EUR * R/T\nDays 15-21 9 EUR * R/T\n Over  22 days- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nCalendar days are counted, min. 25 EUR</b",
-        f: "Good morning,\n\nThe shipment departured on <b>14.04</b>\nPlanned arrival to Hamburg: approx. <b>29.04</b>\n\nAttached I am sending BL.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment is free from storage for 3 days, counted from the moment the shipment is placed in the warehouse. After the free storage period, the fee is:\nDays 1-7  3,5 EUR * R/T\nDays 8-14 5,5 EUR * R/T\nDays 15-21 9 EUR * R/T\n Over  22 days- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nCalendar days are counted, min. 25 EUR</b>"
+        m: "Good morning,\n\nThe shipment departured on <b>{today}</b>\nPlanned arrival to Hamburg: approx. <b>{today+28}</b>\nPlanned unloading on warehouse: approx. <b>{today+31}</b>\n\nAttached I am sending BL.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment is free from storage for 3 days, counted from the moment the shipment is placed in the warehouse. After the free storage period, the fee is:\nDays 1-7  3,5 EUR * R/T\nDays 8-14 5,5 EUR * R/T\nDays 15-21 9 EUR * R/T\n Over  22 days- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nCalendar days are counted, min. 25 EUR</b>",
+        f: "Good morning,\n\nThe shipment departured on <b>{today}</b>\nPlanned arrival to Hamburg: approx. <b>{today+28}</b>\nPlanned unloading on warehouse: approx. <b>{today+31}</b>\n\nAttached I am sending BL.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment is free from storage for 3 days, counted from the moment the shipment is placed in the warehouse. After the free storage period, the fee is:\nDays 1-7  3,5 EUR * R/T\nDays 8-14 5,5 EUR * R/T\nDays 15-21 9 EUR * R/T\n Over  22 days- 17,5 EUR * R/T \nRatio: 1CBM- 500 KG\nCalendar days are counted, min. 25 EUR</b>"
       }
     }
   },
 
 {
     key: "Wyjazd",
-typ: "FCL",
+    typ: "FCL",
     title: { pl: "Wyjazd pociągu", en: "Departure" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\Kontener wyjechał pociągiem <b>23.07</b>\nPlanowany przyjazd do Małaszewicz: ok. <b>10.09</b>\n\nW załączeniu przesyłam SMGS.\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x110€ = 740€</b>",
-        f: "Dzień dobry,\n\Kontener wyjechał pociągiem <b>23.07</b>\nPlanowany przyjazd do Małaszewicz: ok. <b>10.09</b>\n\nW załączeniu przesyłam SMGS.\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x110€ = 740€</b>"
+        m: "Dzień dobry,\n\nKontener wyjechał pociągiem <b>{today}</b>\nPlanowany przyjazd do Małaszewicz: ok. <b>{today+21}</b>\n\nW załączeniu przesyłam SMGS.\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x110€ = 740€</b>",
+        f: "Dzień dobry,\n\nKontener wyjechał pociągiem <b>{today}</b>\nPlanowany przyjazd do Małaszewicz: ok. <b>{today+21}</b>\n\nW załączeniu przesyłam SMGS.\n\n<b>BARDZO WAŻNE</b> – prosimy o przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi z możliwie największym wyprzedzeniem. Od dnia 31.10.2024 wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.\n\nProszę o przesłanie dokumentów handlowych do odprawy celnej:\n\n1) <b>faktura handlowa z informacją o:</b>\n• danych adresowych nadawcy\n• odbiorcy towaru\n• warunkach dostawy\n• kraju pochodzenia\n• kwocie i walucie faktury w przypadku towarów otrzymywanych bezpłatnie, musi zostać podana ich realna wartość handlowa dla celów celnych),\n2) <b>packing list</b>,\n3) <b>tłumaczenie nazwy towaru na fakturze wraz z HS kodami</b> - wykonane na kopii faktury z podaniem imienia i nazwiska osoby tłumaczącej (tłumaczenie nie musi być wykonane prze tłumacza przysięgłego),\n4) <b>deklaracja zgodności, świadectwo pochodzenia, świadectwo zdrowia produktu (jeśli są wymagane)</b>\n5) </b>inne dokumenty, do danego towaru, wymagane zgodnie z prawem unijnym.</b>\n\nProszę o zaproponowanie kodu celnego, jeśli odprawiali Państwo już ten towar wcześniej.\n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x100€ = 740€</b>"
       },
       en: {
-        m: "Good morning,\n\nThe container departured on <b>14.04</b>\nPlanned arrival to Hamburg: approx. <b>29.04</b>\n\nAttached I am sending SMGS.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment has 3 days free of storage, counted from the moment the container arrives at the terminal.\n\n<b>The shipment will then be charged the following storage costs by the rail operator if the storage does not exceed : \n5 days - 60€/day\n10 days - 100€/day\n15 days - 140€/day\n29 days - 180€/day\nthereafter - 280€/day\n\n+ Handling 80€ if the storage occurs\n\nExample: \n1. 11 days = 80€ + 11x140€ = 1620€.\n2. 6 days = 80€ + 6x100€ = 680€.</b>",
-        f: "Good morning,\n\nThe container departured on <b>14.04</b>\nPlanned arrival to Hamburg: approx. <b>29.04</b>\n\nAttached I am sending SMGS.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment has 3 days free of storage, counted from the moment the container arrives at the terminal.\n\n<b>The shipment will then be charged the following storage costs by the rail operator if the storage does not exceed : \n5 days - 60€/day\n10 days - 100€/day\n15 days - 140€/day\n29 days - 180€/day\nthereafter - 280€/day\n\n+ Handling 80€ if the storage occurs\n\nExample: \n1. 11 days = 80€ + 11x140€ = 1620€.\n2. 6 days = 80€ + 6x100€ = 680€.</b>"
+        m: "Good morning,\n\nContainer departured on <b>{today}</b>\nPlanned arrival to Hamburg: approx. <b>{today+28}</b>\n\nAttached I am sending SMGS.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment has 3 days free of storage, counted from the moment the container arrives at the terminal.\n\n<b>The shipment will then be charged the following storage costs by the rail operator if the storage does not exceed : \n5 days - 60€/day\n10 days - 100€/day\n15 days - 140€/day\n29 days - 180€/day\nthereafter - 280€/day\n\n+ Handling 80€ if the storage occurs\n\nExample: \n1. 11 days = 80€ + 11x140€ = 1620€.\n2. 6 days = 80€ + 6x100€ = 680€.</b>",
+        f: "Good morning,\n\nContainer departured on <b>{today}</b>\nPlanned arrival to Hamburg: approx. <b>{today+28}</b>\n\nAttached I am sending SMGS.\n\nPlease send commercial documents for T1: packing list, commercial invoice, custom office code for clearance and HS code of goods.\n\n<b>The shipment has 3 days free of storage, counted from the moment the container arrives at the terminal.\n\n<b>The shipment will then be charged the following storage costs by the rail operator if the storage does not exceed : \n5 days - 60€/day\n10 days - 100€/day\n15 days - 140€/day\n29 days - 180€/day\nthereafter - 280€/day\n\n+ Handling 80€ if the storage occurs\n\nExample: \n1. 11 days = 80€ + 11x140€ = 1620€.\n2. 6 days = 80€ + 6x100€ = 680€.</b>"
       }
     }
   },
 
 {
     key: "Przypomnienie-o-dokumentach",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Przypomnienie o dokumentach", en: "Documents reminder" },
     content: {
       pl: {
         m: "Dzień dobry,\n\n<b>Proszę o pilne przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi.</b> Pod koniec zeszłego roku wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera.",
         f: "Dzień dobry,\n\n<b>Proszę o pilne przesłanie dokumentów do odprawy celnej z sugerowanymi kodami celnymi.</b> Pod koniec zeszłego roku wszedł w życie obowiązek podawania kodów celnych towarów zanim towar przekroczy granicę UE. Jesteśmy zobowiązani te kody przekazać agencji celnej przed dotarciem towaru do Polski, w przeciwnym razie zostaną Państwo obciążeni refakturowanymi kosztami przestoju kontenera."
       },
-      en: {
-        m: "Good morning,\n\n<b>Please urgently send your customs clearance documents with the suggested customs codes.</b> At the end of last year, the obligation to provide customs codes for goods before they cross the EU border came into effect. We are obligated to provide these codes to the customs agency before the goods reach Poland; otherwise, you will be charged re-invoiced container demurrage costs.",
-        f: "Good morning,\n\n<b>Please urgently send your customs clearance documents with the suggested customs codes.</b> At the end of last year, the obligation to provide customs codes for goods before they cross the EU border came into effect. We are obligated to provide these codes to the customs agency before the goods reach Poland; otherwise, you will be charged re-invoiced container demurrage costs."
-      }
     }
   },
 
 {
     key: "Opozniony-przyjazd",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Opóźniony przyjazd", en: "Delayed arrival" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nPociąg notuje opóźnienie.\n\nWedług najnowszego trackingu pociąg ma dojechać do Małaszewicz <b>04.02</b>\n\nPowrócę z kolejnymi informacjami.",
-        f: "Dzień dobry,\n\nPociąg notuje opóźnienie.\n\nWedług najnowszego trackingu pociąg ma dojechać do Małaszewicz <b>04.02</b>\n\nPowrócę z kolejnymi informacjami."
+        m: "Dzień dobry,\n\nPociąg notuje opóźnienie.\n\nWedług najnowszego trackingu pociąg ma dojechać do Małaszewicz <b>{today+2}</b>\n\nPowrócę z kolejnymi informacjami.",
+        f: "Dzień dobry,\n\nPociąg notuje opóźnienie.\n\nWedług najnowszego trackingu pociąg ma dojechać do Małaszewicz <b>{today+2}</b>\n\nPowrócę z kolejnymi informacjami."
       },
       en: {
-        m: "Good morning,\n\nThe train is experiencing a delay.\n\nAccording to the latest tracking, the train is scheduled to arrive in Małaszewicze on <b>04.02</b>\n\nI will return with further information.",
-        f: "Good morning,\n\nThe train is experiencing a delay.\n\nAccording to the latest tracking, the train is scheduled to arrive in Małaszewicze on <b>04.02</b>\n\nI will return with further information."
+        m: "Good morning,\n\nThe train is experiencing a delay.\n\nAccording to the latest tracking, the train is scheduled to arrive in Małaszewicze on <b>{today+2}</b>\n\nI will return with further information.",
+        f: "Good morning,\n\nThe train is experiencing a delay.\n\nAccording to the latest tracking, the train is scheduled to arrive in Małaszewicze on <b>{today+2}</b>\n\nI will return with further information."
       }
     }
   },
 
 {
     key: "Przyjazd-pociagu",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Przyjazd pociągu", en: "Train arrival" },
     content: {
       pl: {
@@ -453,7 +452,7 @@ typ: "LCL",
 
 {
     key: "Przyjazd-pociagu-brak-daty-rozladunku",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Przyjazd pociągu brak daty rozładunku", en: "Train arrival" },
     content: {
       pl: {
@@ -469,12 +468,12 @@ typ: "LCL",
 
 {
     key: "Przyjazd-pociagu",
-typ: "FCL",
+    typ: "FCL",
     title: { pl: "Przyjazd pociągu", en: "Train arrival" },
     content: {
       pl: {
         m: "Dzień dobry,\n\nKontener pojawił się na terminalu, zgłosiłem kontener do odprawy.\n\nW załączniku przesyłam fakturę transportową.\n\nPowrócę z powiadomieniem o należnościach celnych \n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x110€ = 740€</b>",
-        f: "Dzień dobry,\n\nKontener pojawił się na terminalu, zgłosiłem kontener do odprawy.\n\nW załączniku przesyłam fakturę transportową.\n\nPowrócę z powiadomieniem o należnościach celnych \n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x110€ = 740€</b>"
+        f: "Dzień dobry,\n\nKontener pojawił się na terminalu, zgłosiłem kontener do odprawy.\n\nW załączniku przesyłam fakturę transportową.\n\nPowrócę z powiadomieniem o należnościach celnych \n\n<b>Kontener ma 3 dni wolne od składowania, liczone od momentu pojawienia się kontenera na terminalu (ATA)\n\nNastępnie przesyłka będzie przez operatora kolejowego obciążona poniższymi kosztami za składowanie jeśli składowe nie przekroczy : \n5 dni - 65€/dzień\n10 dni – 110€/dzień\n15 dni – 155€/dzień\n29 dni – 200€/dzień\nnastępnie – 310€/dzień\n\n+ Handling 80€ jeśli składowe wystąpi\n\nPrzykład:\n 1. 11 dni = 80€ + 11x155€ = 1785€\n2. 6 dni = 80€ + 6x100€ = 740€</b>"
       },
       en: {
         m: "Good morning,\n\nThe container appeared at the terminal and I have registered the container for customs clearance.\n\nPlease find attached the transport invoice.\n\nI will return with notification of customs duties and information after the container has been unloaded at the terminal.\n\n<b>The shipment will then be charged the following storage costs by the rail operator if the storage does not exceed : \n5 days - 60€/day\n10 days - 100€/day\n15 days - 140€/day\n29 days - 180€/day\nthereafter - 280€/day\n\n+ Handling 80€ if the storage occurs\n\nExample: \n1. 11 days = 80€ + 11x140€ = 1620€.\n2. 6 days = 80€ + 6x100€ = 680€.</b>",
@@ -485,7 +484,7 @@ typ: "FCL",
 
 {
     key: "Rozformowanie-kontenera",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Rozformowanie kontenera", en: "Planned devanning LCL" },
     content: {
       pl: {
@@ -497,7 +496,7 @@ typ: "LCL",
 
 {
     key: "Po-rozladunku-LCL",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Po rozładunku LCL", en: "After devanning LCL" },
     content: {
       pl: {
@@ -513,7 +512,7 @@ typ: "LCL",
 
 {
     key: "Dokumenty-odprawa-celna",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Dokumenty odprawa celna", en: "Customs clearance documents" },
     content: {
       pl: {
@@ -525,7 +524,7 @@ typ: "ALL",
 
 {
     key: "Dokumenty-T1",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Dokumenty T1", en: "T1 documents" },
     content: {
       pl: {
@@ -541,7 +540,7 @@ typ: "ALL",
 
 {
     key: "Ostatni-dzien-składowego",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Ostatni dzień składowego", en: "Last storage day" },
     content: {
       pl: {
@@ -558,7 +557,7 @@ typ: "LCL",
 
 {
     key: "Naleznosci-celne-RUSAK",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Należności celne RUSAK", en: "Customs duties" },
     content: {
       pl: {
@@ -572,7 +571,7 @@ typ: "ALL",
 
 {
     key: "Naleznosci-celne",
-typ: "ALL",
+    typ: "ALL",
     title: { pl: "Należności celne", en: "Customs duties" },
     content: {
       pl: {
@@ -586,7 +585,7 @@ typ: "ALL",
 
 {
     key: "Po-odprawie",
-typ: "FCL",
+    typ: "FCL",
     title: { pl: "Po odprawie", en: "After customs" },
     content: {
       pl: {
@@ -599,7 +598,7 @@ typ: "FCL",
 
 {
     key: "Po-odprawie",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Po odprawie", en: "After customs" },
     content: {
       pl: {
@@ -613,26 +612,26 @@ typ: "LCL",
 
 {
     key: "Awizacja-na-magazyn",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Awizacja na magazyn", en: "Advice on warehouse" },
     content: {
       pl: {
-        m: "Dzień dobry,\n\nPrzesyłam awizację <b>SS2211550</b>\n\nNasz numer ref do faktury: <b>ZL500/07/25</b>\n\nKierowca będzie dzisiaj.\n\nKierowca: \n\nAuto: \n\nProszę o potwierdzenie przyjęcia awizacji.",
-        f: "Dzień dobry,\n\nPrzesyłam awizację <b>SS2211550</b>\n\nNasz numer ref do faktury: <b>ZL500/07/25</b>\n\nKierowca będzie dzisiaj.\n\nKierowca: \n\nAuto: \n\nProszę o potwierdzenie przyjęcia awizacji."
+        m: "Dzień dobry,\n\nPrzesyłam awizację <b>SS2211550</b>\n\nNasz numer ref do faktury: <b>ZL500/{today+0}</b>\n\nKierowca będzie dzisiaj.\n\nKierowca: \n\nAuto: \n\nProszę o potwierdzenie przyjęcia awizacji.",
+        f: "Dzień dobry,\n\nPrzesyłam awizację <b>SS2211550</b>\n\nNasz numer ref do faktury: <b>ZL500/{today+0}</b>\n\nKierowca będzie dzisiaj.\n\nKierowca: \n\nAuto: \n\nProszę o potwierdzenie przyjęcia awizacji."
       },
     }
   },
 
 {
     key: "Awizacja-do-klienta",
-typ: "LCL",
+    typ: "LCL",
     title: { pl: "Awizacja do klienta", en: "Advice to client" },
     content: {
       pl: {
         m: "Dzień dobry,\n\nkierowca dostarczy towar jutro.\n\nPoniżej dane:\n\nKierowca: \nAuto: \n\nW przypadku stwierdzenia uszkodzenia towaru prosimy o dodanie adnotacji na dokumencie CMR, którą będzie miał ze sobą kierowca. W przypadku odebrania towaru przez odbiorcę, który nie zgłosił lub nie stwierdził szkody w towarze przyjmuje się, że towar odpowiada stanowi wskazanemu w dokumencie transportowym.",
         f: "Dzień dobry,\n\nkierowca dostarczy towar jutro.\n\nPoniżej dane:\n\nKierowca: \nAuto: \n\nW przypadku stwierdzenia uszkodzenia towaru prosimy o dodanie adnotacji na dokumencie CMR, którą będzie miał ze sobą kierowca. W przypadku odebrania towaru przez odbiorcę, który nie zgłosił lub nie stwierdził szkody w towarze przyjmuje się, że towar odpowiada stanowi wskazanemu w dokumencie transportowym."
       },
- en: {
+      en: {
         m: "Good morning,\n\nThe driver will deliver the goods tomorrow.\n\nBelow are the details:\n\nDriver: \nVehicle: \n\nIf any damage to the goods is detected, please add a note on the CMR document, which the driver will carry with him. If the goods are collected by the recipient who has not reported or found any damage to the goods, it is assumed that the goods are in the condition indicated in the transport document.",
         f: "Good morning,\n\nThe driver will deliver the goods tomorrow.\n\nBelow are the details:\n\nDriver: \nVehicle: \n\nIf any damage to the goods is detected, please add a note on the CMR document, which the driver will carry with him. If the goods are collected by the recipient who has not reported or found any damage to the goods, it is assumed that the goods are in the condition indicated in the transport document."
       }
@@ -642,20 +641,37 @@ typ: "LCL",
 
 ];
 
+// Nowa uniwersalna funkcja do wstawiania dat
+function insertDynamicDates(text) {
+  const today = new Date();
+
+  return text.replace(/\{(today|\s*today\s*\+\s*(\d+))\}/g, (match, p1, p2) => {
+    let dateToCalculate = new Date(today);
+    if (p2) {
+      const daysToAdd = parseInt(p2, 10);
+      dateToCalculate.setDate(dateToCalculate.getDate() + daysToAdd);
+    }
+    return dateToCalculate.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' });
+  });
+}
+
+
 function renderTemplates() {
   const typ = document.getElementById('typ').value;
-const lang = document.getElementById('lang').value;
+  const lang = document.getElementById('lang').value;
   const gender = document.getElementById('gender').value;
   const view = document.getElementById('view') ? document.getElementById('view').value : "column";
   const list = document.getElementById('templates-list');
   list.innerHTML = '';
   list.className = 'templates-list' + (view === "row" ? ' row' : '');
+
   templates
   .filter(t =>
     (!t.typ || t.typ === typ || t.typ === "ALL") && t.content[lang] && t.content[lang][gender]
   )
   .forEach(t => {
-    const text = t.content[lang][gender] || '';
+    let text = t.content[lang][gender] || '';
+    text = insertDynamicDates(text);
     const block = document.createElement('div');
     block.className = 'template-block' + (view === "row" ? ' row-block' : '');
     block.innerHTML = `
@@ -666,7 +682,5 @@ const lang = document.getElementById('lang').value;
   });
 }
 renderTemplates();
-</script>
-</body>
+</script></body>
 </html>
-
