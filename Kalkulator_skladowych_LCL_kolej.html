@@ -41,18 +41,6 @@
 <div class="page-content">
   <h1>Kalkulator Składowania LCL - Kolej</h1>
   <div class="section">
-    <!-- Wybór agenta dekonsolidacyjnego -->
-    <label for="agent">Agent dekonsolidacyjny:</label>
-    <select id="agent">
-      <option value="">Wybierz agenta</option>
-      <option value="WŁASNA KONSOLA">WŁASNA KONSOLA</option>
-      <option value="ELCOM">ELCOM</option>
-      <option value="BUS">BUS</option>
-      <option value="ENTREGA">ENTREGA</option>
-      <option value="IGS">IGS</option>
-      <option value="UCS">UCS</option>
-    </select>
-
     <!-- Ilość W/M -->
     <label style="margin-top:20px;">
       Ilość CBM:
@@ -74,17 +62,10 @@
 </div>
 
 <script>
-const railPricing = {
-  "WŁASNA KONSOLA": { freeDays: 5, dailyRate: 1.8, minCost: 0, currency: "PLN" },
-  "ELCOM": { freeDays: 5, dailyRate: 2, minCost: 15, currency: "USD" },
-  "BUS": { freeDays: 5, dailyRate: 2, minCost: 15, currency: "USD" },
-  "ENTREGA": { freeDays: 5, dailyRate: 1.5, minCost: 30, currency: "USD" },
-  "IGS": { freeDays: 4, dailyRate: 3, minCost: 20, currency: "EUR" },
-  "UCS": { freeDays: 5, minCost: 25, currency: "EUR" }, // UCS będzie miał osobny cennik zależny od dni
-};
+// Cennik dla wszystkich agentów z 3 USD per CBM oraz 5 dni wolnych
+const pricing = { freeDays: 5, dailyRate: 3, minCost: 25, currency: "USD" };
 
 function calculateRailStorage() {
-  const agent = document.getElementById('agent').value;
   const unloadDate = new Date(document.getElementById('unload_date').value);
   const pickupDate = new Date(document.getElementById('pickup_date').value);
   const wm = parseFloat(document.getElementById('wm').value);
@@ -92,7 +73,6 @@ function calculateRailStorage() {
   resultBox.innerHTML = '';
 
   let errorMessage = '';
-  if (!agent) errorMessage += 'Proszę wybrać agenta dekonsolidacyjnego. ';
   if (isNaN(wm) || wm <= 0) errorMessage += 'Podaj ilość W/M większą od zera. ';
   if (unloadDate == "Invalid Date" || pickupDate == "Invalid Date") errorMessage += 'Wprowadź poprawne daty rozładunku i odbioru. ';
   if (unloadDate && pickupDate && pickupDate < unloadDate) errorMessage += 'Data odbioru nie może być wcześniejsza niż data rozładunku. ';
@@ -103,36 +83,12 @@ function calculateRailStorage() {
   }
 
   const daysInStorage = Math.round((pickupDate - unloadDate) / (24 * 60 * 60 * 1000)) + 1;
-  const pricing = railPricing[agent];
-
-  if (!pricing) {
-    resultBox.innerHTML = `<p style="color: red;">Brak cennika dla wybranego agenta.</p>`;
-    return;
-  }
-
   let totalCost = 0;
   let exceededDays = Math.max(0, daysInStorage - pricing.freeDays);
 
-  // Cennik dla UCS zależny od dni
-  if (agent === "UCS") {
-    // Obliczanie kosztu na podstawie dni
-    if (exceededDays > 0) {
-      if (exceededDays <= 7) {
-        totalCost = exceededDays * 3 * wm; // Dni 1-7 -> 3 EUR
-      } else if (exceededDays <= 14) {
-        totalCost = (7 * 3 + (exceededDays - 7) * 5) * wm; // Dni 8-14 -> 5 EUR
-      } else if (exceededDays <= 21) {
-        totalCost = (7 * 3 + 7 * 5 + (exceededDays - 14) * 8) * wm; // Dni 15-21 -> 8 EUR
-      } else {
-        totalCost = (7 * 3 + 7 * 5 + 7 * 8 + (exceededDays - 21) * 16) * wm; // Ponad 22 dni -> 16 EUR
-      }
-    }
-    totalCost = Math.max(totalCost, 25); // Min. 25 EUR
-  } else {
-    // Cennik dla pozostałych agentów
-    totalCost = exceededDays * pricing.dailyRate * wm;
-    if (totalCost < pricing.minCost && exceededDays > 0) totalCost = pricing.minCost;
-  }
+  // Obliczanie kosztów
+  totalCost = exceededDays * pricing.dailyRate * wm;
+  if (totalCost < pricing.minCost && exceededDays > 0) totalCost = pricing.minCost;
 
   // Generowanie zakresu dni wolnych
   const freeStartDate = new Date(unloadDate);
@@ -149,34 +105,14 @@ function calculateRailStorage() {
     exceededDaysRange = `${exceededStartDate.toLocaleDateString('pl-PL')} - ${exceededEndDate.toLocaleDateString('pl-PL')}`;
   }
 
-  // Dodanie cennika UCS do stawki za dzień
-  let rateDetails = `${pricing.dailyRate} ${pricing.currency} / CBM`;
-  if (agent === "UCS") {
-    rateDetails = `Dni 1-7 -> 3 EUR / w/m <br>
-Dni 8-14 -> 5 EUR / w/m <br>
-Dni 15-21 -> 8 EUR / w/m <br>
-Ponad 22 dni -> 16 EUR / w/m`;
-  }
-
-  if (agent === "UCS") {
-    resultBox.innerHTML = `
-      <p><strong>Okres składowania:</strong> ${unloadDate.toLocaleDateString('pl-PL')} – ${pickupDate.toLocaleDateString('pl-PL')}</p>
-      <p><strong>Dni wolne:</strong> ${pricing.freeDays} (${freeDaysRange})</p>
-      <p><strong>Przekroczone dni:</strong> ${exceededDays} ${exceededDays > 0 ? `(${exceededDaysRange})` : ''}</p>
-      <p><strong>Cennik:</strong> <br>${rateDetails}</p>
-      <p><strong>Minimalna stawka:</strong> ${pricing.minCost} ${pricing.currency}</p>
-      <p><strong><b>Łączny koszt:</b> <span style="color:#be1e2d;">${totalCost.toFixed(2)} ${pricing.currency}</span></strong></p>
-    `;
-  } else {
-    resultBox.innerHTML = `
-      <p><strong>Okres składowania:</strong> ${unloadDate.toLocaleDateString('pl-PL')} – ${pickupDate.toLocaleDateString('pl-PL')}</p>
-      <p><strong>Dni wolne:</strong> ${pricing.freeDays} (${freeDaysRange})</p>
-      <p><strong>Przekroczone dni:</strong> ${exceededDays} ${exceededDays > 0 ? `(${exceededDaysRange})` : ''}</p>
-      <p><strong>Stawka za dzień:</strong> ${pricing.dailyRate} ${pricing.currency} / CBM</p>
-      <p><strong>Minimalna stawka:</strong> ${pricing.minCost} ${pricing.currency}</p>
-      <p><strong><b>Łączny koszt:</b> <span style="color:#be1e2d;">${totalCost.toFixed(2)} ${pricing.currency}</span></strong></p>
-    `;
-  }
+  resultBox.innerHTML = `
+    <p><strong>Okres składowania:</strong> ${unloadDate.toLocaleDateString('pl-PL')} – ${pickupDate.toLocaleDateString('pl-PL')}</p>
+    <p><strong>Dni wolne:</strong> ${pricing.freeDays} (${freeDaysRange})</p>
+    <p><strong>Przekroczone dni:</strong> ${exceededDays} ${exceededDays > 0 ? `(${exceededDaysRange})` : ''}</p>
+    <p><strong>Stawka za dzień:</strong> ${pricing.dailyRate} ${pricing.currency} / CBM</p>
+    <p><strong>Minimalna stawka:</strong> ${pricing.minCost} ${pricing.currency}</p>
+    <p><strong><b>Łączny koszt:</b> <span style="color:#be1e2d;">${totalCost.toFixed(2)} ${pricing.currency}</span></strong></p>
+  `;
 }
 
 // Funkcja ustawiająca dzisiejszą datę jako domyślną
@@ -188,10 +124,7 @@ function setDefaultDate() {
 
 // Wywołanie funkcji po załadowaniu strony
 window.onload = setDefaultDate;
-
 </script>
 
 </body>
 </html>
-
-
